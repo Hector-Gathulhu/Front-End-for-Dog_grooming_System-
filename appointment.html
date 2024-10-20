@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/appointment.css">
+    <title>Manage Appointments</title>
+
+</head>
+
+<body>
+
+    <!-- Header with navigation options -->
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="owner.html">Owner</a>
+            <a href="dog.html">About your buddy</a>
+            <a href="appointment.html">About your appointment</a>
+        </nav>
+        <h1>Manage Appointments</h1>
+    </header>
+
+    <!-- Main  -->
+    <main>
+        <div class="container">
+            <!-- Register a new appointment -->
+            <section>
+                <h2>Register a new appointment</h2>
+                <form id="register-appointment">
+                    <label for="dog-id">Dog ID:</label>
+                    <input type="text" id="dog-id" name="dog-id" required>
+
+                    <label for="dog-name">Dog Name:</label>
+                    <input type="text" id="dog-name" name="dog-name" required>
+
+                    <label for="owner-phone">Owner Phone Number:</label>
+                    <input type="tel" id="owner-phone" name="owner-phone" required>
+
+                    <label for="bath-type">Bath type:</label>
+                    <select id="bath-type" name="bath-type">
+                        <option value="Basic">Basic</option>
+                        <option value="Deluxe">Deluxe</option>
+                        <option value="Premium">Premium</option>
+                    </select>
+
+                    <label for="owner-id">Owner ID:</label>
+                    <input type="number" id="owner-id" name="owner-id" required min="1">
+
+                    <input type="submit" value="Register">
+                </form>
+
+                <!-- Show registered appointments -->
+            </section>
+
+            <section>
+                <h2>Registered appointments</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Dog name</th>
+                            <th>Owner phone</th>
+                            <th>Bath type</th>
+                            <th>Owner ID</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointment-list">
+                        <!-- Appointment records will be populated here -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Search appointment by dog's name -->
+            <section>
+                <h2>Search appointment by dog name</h2>
+                <form id="search-appointment">
+                    <label for="search-dog-name">Dog name:</label>
+                    <input type="text" id="search-dog-name" name="search-dog-name" required>
+
+                    <input type="submit" value="Search">
+                </form>
+            </section>
+
+
+            <!-- Update an appointment -->
+            <section>
+                <h2>Update appointment</h2>
+                <form id="update-appointment">
+                    <label for="update-id">Appointment ID:</label>
+                    <input type="number" id="update-id" name="update-id" required>
+
+                    <label for="update-dog-name">New dog name:</label>
+                    <input type="text" id="update-dog-name" name="update-dog-name">
+
+                    <label for="update-owner-id">New owner ID:</label>
+                    <input type="number" id="update-owner-id" name="update-owner-id">
+
+                    <label for="update-owner-phone">New owner phone:</label>
+                    <input type="tel" id="update-owner-phone" name="update-owner-phone">
+
+                    <label for="update-bath-type">New bath type:</label>
+                    <select id="update-bath-type" name="update-bath-type">
+                        <option value="Basic">Basic</option>
+                        <option value="Deluxe">Deluxe</option>
+                        <option value="Premium">Premium</option>
+                    </select>
+
+                    
+
+                    <input type="submit" value="Update">
+                </form>
+            </section>
+
+
+            <!-- Delete an appointment -->
+            <section>
+                <h2>Delete appointment</h2>
+                <form id="delete-appointment">
+                    <label for="delete-id">Appointment ID:</label>
+                    <input type="number" id="delete-id" name="delete-id" required>
+
+                    <input type="submit" value="Delete">
+                </form>
+            </section>
+
+        </div>
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-section">
+            <p>&copy; 2024 Grooming doggy friend. All rights reserved.</p>
+            <p>Contact: 513-547-95472 | Email: contact@groomingdoggyfriend.com</p>
+        </div>
+    </footer>
+
+    <script src="js/appointment.js"></script>
+
+</body>
+
+</html>

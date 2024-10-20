@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/dog.css">
+    <title>Manage Dogs</title>
+
+</head>
+
+<body>
+
+    <!-- Header with navigation options -->
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="owner.html">Owner</a>
+            <a href="dog.html">About your buddy</a>
+            <a href="appointment.html">About your appointment</a>
+        </nav>
+        <h1>Manage Dogs</h1>
+    </header>
+
+    <!-- Main content -->
+    <div class="container">
+        <!-- Register a new dog -->
+        <h2>Register a new dog</h2>
+        <form id="register-dog">
+            <label for="dog-name">Dog name:</label>
+            <input type="text" id="dog-name" name="dog-name" required>
+
+            <label for="dog-age">Dog age:</label>
+            <input type="number" id="dog-age" name="dog-age" required>
+
+            <label for="dog-owner">Owner ID:</label>
+            <input type="number" id="dog-owner" name="dog-owner" min="1"></input>
+
+            <input type="submit" value="Register">
+        </form>
+
+        <!-- Show registered dogs -->
+        <h2>Registered dogs</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Owner</th>
+                </tr>
+            </thead>
+            <tbody id="dog-list">
+                <!-- Data -->
+            </tbody>
+        </table>
+
+        <!-- Search for a dog by ID -->
+        <h2>Search dog by ID</h2>
+        <form id="search-dog">
+            <label for="search-id">Dog ID:</label>
+            <input type="number" id="search-id" name="search-id" required>
+
+            <input type="submit" value="Search">
+        </form>
+
+        <!-- Update information -->
+        <h2>Update dog information</h2>
+        <form id="update-dog">
+
+            <label for="update-id">Dog ID:</label>
+            <input type="number" id="update-id" name="update-id" required>
+
+            <label for="update-name">New name:</label>
+            <input type="text" id="update-name" name="update-name">
+
+            <label for="update-age">New age:</label>
+            <input type="number" id="update-age" name="update-age">
+
+            <label for="update-owner">New owner:</label>
+            <input type="number" id="update-owner" name="update-owner" min="1">
+            </input>
+
+            <input type="submit" value="Update">
+        </form>
+
+        <!-- Delete a dog by ID -->
+        <h2>Delete dog</h2>
+        <form id="delete-dog">
+            <label for="delete-id">Dog ID:</label>
+            <input type="number" id="delete-id" name="delete-id" required>
+
+            <input type="submit" value="Delete">
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-section">
+            <p>&copy; 2024 Grooming doggy friend. All rights reserved.</p>
+            <p>Contact: 513-547-95472 | Email: contact@groomingdoggyfriend.com</p>
+        </div>
+    </footer>
+
+    <script src="js/dog.js"></script>
+
+</body>
+
+</html>
