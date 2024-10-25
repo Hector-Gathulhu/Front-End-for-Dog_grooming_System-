@@ -10,11 +10,11 @@ form.addEventListener('submit', function (event) {
     event.preventDefault();
 
     const formData = {
-        name: document.getElementById('dog-name').value,
-        ownerPhone: document.getElementById('owner-phone').value,
-        bathType: document.getElementById('bath-type').value,
-        ownerId: document.getElementById('owner-id').value,
         dogId: document.getElementById('dog-id').value,
+        ownerId: document.getElementById('owner-id').value,
+        bathType: document.getElementById('bath-type').value,
+        dateTime: document.getElementById('date_time').value
+
     };
 
     fetch(postUrl, {
@@ -33,6 +33,7 @@ form.addEventListener('submit', function (event) {
         .then(data => {
             alert("Dog registered")
             console.log('Success:', data);
+            window.location.reload();
         })
         .catch(error => {
             console.error('Error:', error);
@@ -49,13 +50,21 @@ function fetchAllAppoitnments() {
             const appointmentList = document.getElementById('appointment-list');
             appointmentList.innerHTML = '';
             data.forEach(appointment => {
+
+                const date = new Date(appointment.dateTime);
+
+                const newDate = date.toLocaleDateString('es-ES') + ' ' + date.toLocaleTimeString('es-ES', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
                 appointmentList.innerHTML += `
                 <tr>
                     <td>${appointment.id}</td>
-                    <td>${appointment.name}</td>
-                    <td>${appointment.ownerPhone}</td>
-                    <td>${appointment.bathType}</td>
+                    <td>${appointment.dog.id}</td>
                     <td>${appointment.owner.id}</td>
+                    <td>${appointment.bathType}</td>
+                    <td>${newDate}</td>
                 </tr>`;
             });
         })
@@ -91,10 +100,10 @@ document.getElementById('update-appointment').addEventListener('submit', functio
 
     const appointmentId = document.getElementById('update-id').value;
     const updatedAppointmentData = {
-        name: document.getElementById('update-dog-name').value,
-        ownerPhone: document.getElementById('update-owner-phone').value,
+        dogId: document.getElementById('update-dog-id').value,
+        ownerId: document.getElementById('update-owner-id').value,
         bathType: document.getElementById('update-bath-type').value,
-        owner: document.getElementById('update-owner-id').value,
+        dateTime: document.getElementById('').value,
     };
 
     fetch(`${putUrl}/${appointmentId}`, {
@@ -108,6 +117,7 @@ document.getElementById('update-appointment').addEventListener('submit', functio
         .then(data => {
             alert('Dog updated successfully');
             console.log('Success:', data);
+            window.location.reload();
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -125,6 +135,7 @@ document.getElementById('delete-appointment').addEventListener('submit', functio
     })
         .then(() => {
             alert('Dog deleted successfully');
+            window.location.reload();
         })
         .catch((error) => {
             console.error('Error:', error);

@@ -32,6 +32,7 @@ form.addEventListener('submit', function (event) {
         .then(data => {
             alert("Owner registered")
             console.log('Success:', data);
+            window.location.reload();
         })
         .catch(error => {
             console.error('Error:', error);
@@ -104,6 +105,7 @@ document.getElementById('update-owner').addEventListener('submit', function (eve
         .then(data => {
             alert('Owner updated successfully');
             console.log('Success:', data);
+            window.location.reload();
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -121,6 +123,7 @@ document.getElementById('delete-owner').addEventListener('submit', function (eve
     })
         .then(() => {
             alert('Owner deleted successfully');
+            window.location.reload();
         })
         .catch((error) => {
             console.error('Error:', error);

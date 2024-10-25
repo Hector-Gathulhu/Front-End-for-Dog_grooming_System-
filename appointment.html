@@ -32,11 +32,8 @@
                     <label for="dog-id">Dog ID:</label>
                     <input type="text" id="dog-id" name="dog-id" required>
 
-                    <label for="dog-name">Dog Name:</label>
-                    <input type="text" id="dog-name" name="dog-name" required>
-
-                    <label for="owner-phone">Owner Phone Number:</label>
-                    <input type="tel" id="owner-phone" name="owner-phone" required>
+                    <label for="owner-id">Owner ID:</label>
+                    <input type="number" id="owner-id" name="owner-id" required min="1">
 
                     <label for="bath-type">Bath type:</label>
                     <select id="bath-type" name="bath-type">
@@ -45,8 +42,8 @@
                         <option value="Premium">Premium</option>
                     </select>
 
-                    <label for="owner-id">Owner ID:</label>
-                    <input type="number" id="owner-id" name="owner-id" required min="1">
+                    <label for="date">Select a date and time:</label>
+                    <input type="datetime-local" name="date" id="date_time" required>
 
                     <input type="submit" value="Register">
                 </form>
@@ -60,10 +57,10 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Dog name</th>
-                            <th>Owner phone</th>
-                            <th>Bath type</th>
+                            <th>Dog ID</th>
                             <th>Owner ID</th>
+                            <th>Bath type</th>
+                            <th>Date</th>
                         </tr>
                     </thead>
                     <tbody id="appointment-list">
@@ -91,14 +88,11 @@
                     <label for="update-id">Appointment ID:</label>
                     <input type="number" id="update-id" name="update-id" required>
 
-                    <label for="update-dog-name">New dog name:</label>
-                    <input type="text" id="update-dog-name" name="update-dog-name">
+                    <label for="update-dog-id">New dog ID:</label>
+                    <input type="number" id="update-dog-id" name="update-dog-id">
 
                     <label for="update-owner-id">New owner ID:</label>
                     <input type="number" id="update-owner-id" name="update-owner-id">
-
-                    <label for="update-owner-phone">New owner phone:</label>
-                    <input type="tel" id="update-owner-phone" name="update-owner-phone">
 
                     <label for="update-bath-type">New bath type:</label>
                     <select id="update-bath-type" name="update-bath-type">
@@ -107,7 +101,8 @@
                         <option value="Premium">Premium</option>
                     </select>
 
-                    
+                    <label for="update_date">Select a new date and time:</label>
+                    <input type="datetime-local" name="update_date" id="update_date_time" required>
 
                     <input type="submit" value="Update">
                 </form>

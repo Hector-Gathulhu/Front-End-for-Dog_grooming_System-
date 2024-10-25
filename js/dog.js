@@ -31,6 +31,7 @@ form.addEventListener('submit', function (event) {
         .then(data => {
             alert("Dog registered")
             console.log('Success:', data);
+            window.location.reload();
         })
         .catch(error => {
             console.error('Error:', error);
@@ -104,6 +105,7 @@ document.getElementById('update-dog').addEventListener('submit', function (event
         .then(data => {
             alert('Dog updated successfully');
             console.log('Success:', data);
+            window.location.reload();
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -121,6 +123,7 @@ document.getElementById('delete-dog').addEventListener('submit', function (event
     })
         .then(() => {
             alert('Dog deleted successfully');
+            window.location.reload();
         })
         .catch((error) => {
             console.error('Error:', error);
