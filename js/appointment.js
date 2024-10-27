@@ -62,7 +62,7 @@ function loadDogOptions() {
             dogSelect.addEventListener('change', function () {
                 const selectedDogId = dogSelect.value;
                 const ownerIdField = document.getElementById('owner-id');
-                ownerIdField.value = dogOwner[selectedDogId] || ''; // Asigna el ownerId o deja vacío si no se encuentra
+                ownerIdField.value = dogOwner[selectedDogId] || '';
             });
 
         })
