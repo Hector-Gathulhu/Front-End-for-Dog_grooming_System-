@@ -14,7 +14,6 @@ form.addEventListener('submit', function (event) {
         ownerId: document.getElementById('owner-id').value,
         bathType: document.getElementById('bath-type').value,
         dateTime: document.getElementById('date_time').value
-
     };
 
     fetch(postUrl, {
@@ -40,6 +39,42 @@ form.addEventListener('submit', function (event) {
         });
 });
 
+function loadDogOptions() {
+    fetch('http://localhost:8762/dog/api/v1/dog/allDogs', {
+        method: 'GET',
+    })
+        .then(response => response.json())
+        .then(data => {
+            const dogSelect = document.getElementById('dog-id');
+            dogSelect.innerHTML = '';
+
+            const dogOwner = {};
+
+            data.forEach(dog => {
+                const option = document.createElement('option');
+                option.value = dog.id;
+                option.text = `${dog.id}: ${dog.name}`;
+                dogSelect.appendChild(option);
+
+                dogOwner[dog.id] = dog.owner.id;
+            });
+
+            dogSelect.addEventListener('change', function () {
+                const selectedDogId = dogSelect.value;
+                const ownerIdField = document.getElementById('owner-id');
+                ownerIdField.value = dogOwner[selectedDogId] || ''; // Asigna el ownerId o deja vacío si no se encuentra
+            });
+
+        })
+        .catch(error => console.error('Error fetching dog data:', error));
+}
+
+window.onload = function () {
+    loadDogOptions();
+    fetchAllAppoitnments();
+};
+
+
 // Show all appointments
 function fetchAllAppoitnments() {
     fetch(getAllUrl, {
@@ -61,7 +96,7 @@ function fetchAllAppoitnments() {
                 appointmentList.innerHTML += `
                 <tr>
                     <td>${appointment.id}</td>
-                    <td>${appointment.dog.id}</td>
+                    <td>${appointment.dog.id}: ${appointment.dog.name} </td>
                     <td>${appointment.owner.id}</td>
                     <td>${appointment.bathType}</td>
                     <td>${newDate}</td>
@@ -73,11 +108,8 @@ function fetchAllAppoitnments() {
         });
 }
 
-window.onload = fetchAllAppoitnments;
-
-
 // appointmet by dog name
-document.getElementById('search-appointment').addEventListener('submit', function (event) {
+/*document.getElementById('search-appointment').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const dogName = document.getElementById('search-dog-name').value;
@@ -92,7 +124,8 @@ document.getElementById('search-appointment').addEventListener('submit', functio
         .catch((error) => {
             console.error('Error:', error);
         });
-});
+});*/
+
 
 // Update an appointment
 document.getElementById('update-appointment').addEventListener('submit', function (event) {
