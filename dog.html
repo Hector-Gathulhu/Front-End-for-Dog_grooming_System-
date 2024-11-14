@@ -34,7 +34,9 @@
             <input type="number" id="dog-age" name="dog-age" required>
 
             <label for="dog-owner">Owner ID:</label>
-            <input type="number" id="dog-owner" name="dog-owner" min="1"></input>
+            <select id="dog-owner" name="dog-owner" min="1">
+
+            </select>
 
             <input type="submit" value="Register">
         </form>
@@ -69,17 +71,20 @@
         <form id="update-dog">
 
             <label for="update-id">Dog ID:</label>
-            <input type="number" id="update-id" name="update-id" required>
+            <select type="number" id="update-id" name="update-id" required>
+
+            </select>
 
             <label for="update-name">New name:</label>
-            <input type="text" id="update-name" name="update-name">
+            <input type="text" id="update-name" name="update-name" required>
 
             <label for="update-age">New age:</label>
-            <input type="number" id="update-age" name="update-age">
+            <input type="number" id="update-age" name="update-age" required>
 
             <label for="update-owner">New owner:</label>
-            <input type="number" id="update-owner" name="update-owner" min="1">
-            </input>
+            <select type="number" id="update-owner" name="update-owner" min="1" required>
+
+            </select>
 
             <input type="submit" value="Update">
         </form>
@@ -101,6 +106,17 @@
             <p>Contact: 513-547-95472 | Email: contact@groomingdoggyfriend.com</p>
         </div>
     </footer>
+
+
+    <!-- Modal -->
+
+    <div id="dog-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="dog-modal-message"></p>
+        </div>
+    </div>
+
 
     <script src="js/dog.js"></script>
 

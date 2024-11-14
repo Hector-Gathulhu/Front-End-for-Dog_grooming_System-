@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="../css/ownerRegister.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="../../owner.html">Owner</a>
+            <a href="dog.html">About your buddy</a>
+            <a href="appointment.html">About your appointment</a>
+        </nav>
+        <h1>Registration</h1>
+    </header>
+
+    <!-- body -->
+    <main>
+        <div class="container">
+            <!-- Register an owner -->
+            <section>
+                <h2>Register a new owner</h2>
+                <form id="register-owner">
+                    <label for="name">Full name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" name="phone" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <input type="submit" value="Register">
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modal-message"></p>
+        </div>
+    </div>
+
+    <script src="../js/ownerRegister.js"></script>
+
+</body>
+
+</html>

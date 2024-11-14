@@ -53,13 +53,16 @@
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="owner-list">
-                    
+
                         <!-- DATA -->
                     </tbody>
                 </table>
+
+                <button class="regist-button" onclick="window.location.href='newFront/html/ownerRegister.html'"> Register a new Owner </button>
             </section>
 
 
@@ -80,16 +83,18 @@
                 <h2>Update owner data</h2>
                 <form id="update-owner">
                     <label for="update-id">Owner ID:</label>
-                    <input type="number" id="update-id" name="update-id" required>
+                    <select id="update-id" name="update-id" required >
+                        
+                    </select>
 
                     <label for="update-name">New name:</label>
-                    <input type="text" id="update-name" name="update-name">
+                    <input type="text" id="update-name" name="update-name" required>
 
                     <label for="update-phone">New phone number:</label>
-                    <input type="text" id="update-phone" name="update-phone">
+                    <input type="text" id="update-phone" name="update-phone" required>
 
                     <label for="update-email">New email:</label>
-                    <input type="email" id="update-email" name="update-email">
+                    <input type="email" id="update-email" name="update-email" required>
 
                     <input type="submit" value="Update">
                 </form>
@@ -101,7 +106,7 @@
                 <h2>Delete owner</h2>
                 <form id="delete-owner">
                     <label for="delete-id">Owner ID:</label>
-                    <input type="number" id="delete-id" name="delete-id" min="1" required>
+                    <input type="number" id="delete-id" name="delete-id" min="1" required >
 
                     <input type="submit" value="Delete">
                 </form>
@@ -118,6 +123,14 @@
             <p>Contact: 513-547-95472 | Email: contact@groomingdoggyfriend.com</p>
         </div>
     </footer>
+
+    <!-- Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modal-message"></p>
+        </div>
+    </div>
 
 
     <script src="js/owner.js"></script>

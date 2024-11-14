@@ -5,6 +5,30 @@ const getByIdUrl = 'http://localhost:8762/owner/api/v1/owners/';
 const putUrl = 'http://localhost:8762/owner/api/v1/owners/';
 const deleteUrl = 'http://localhost:8762/owner/api/v1/owners/delete/';
 
+
+// Obtener el modal y el botón de cierre
+const registerModal = document.getElementById('registerModal');
+const closeBtn = document.querySelector('.close');
+
+// Función para abrir el modal con un mensaje
+function openModal(message) {
+    document.getElementById('modal-message').innerHTML = message;
+    registerModal.style.display = 'block';
+}
+
+// Cierra el modal al hacer clic en el botón de cierre
+closeBtn.onclick = function () {
+    registerModal.style.display = 'none';
+}
+
+// Cierra el modal al hacer clic fuera del contenido
+window.onclick = function (event) {
+    if (event.target == registerModal) {
+        registerModal.style.display = 'none';
+    }
+}
+
+
 // Register a new owner
 const form = document.getElementById('register-owner');
 form.addEventListener('submit', function (event) {
@@ -30,11 +54,16 @@ form.addEventListener('submit', function (event) {
             return response.json();
         })
         .then(data => {
-            alert("Owner registered")
+            openModal("Owner registered successfully!");
             console.log('Success:', data);
-            window.location.reload();
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+
         })
         .catch(error => {
+            openModal('Error: ' + error.message);
             console.error('Error:', error);
         });
 });
@@ -56,6 +85,15 @@ function fetchAllOwners() {
                     <td>${owner.name}</td>
                     <td>${owner.phone}</td>
                     <td>${owner.email}</td>
+                    <td>
+                        <div class="options-container">
+                            <button class="action-button" onclick="toggleOptions(this)">...</button>
+                                <div class="options-menu" style="display: none;">
+                                    <button onclick="updateOwner(${owner.id})">Update</button>
+                                    <button onclick="deleteOwner(${owner.id})">Delete</button>
+                                </div>
+                        </div>
+                    </td>
                 </tr>`;
             });
         })
@@ -63,7 +101,12 @@ function fetchAllOwners() {
             console.error('Error:', error);
         });
 }
-window.onload = fetchAllOwners;
+
+function toggleOptions(button) {
+    const optionsMenu = button.nextElementSibling;
+    optionsMenu.style.display = optionsMenu.style.display === 'none' ? 'block' : 'none';
+}
+
 
 // owner by ID
 document.getElementById('search-owner').addEventListener('submit', function (event) {
@@ -76,12 +119,57 @@ document.getElementById('search-owner').addEventListener('submit', function (eve
     })
         .then(response => response.json())
         .then(data => {
-            alert(`Owner found: Name: ${data.name}, Phone: ${data.phone}, Email: ${data.email}`);
+            openModal(`Owner found: <br> Name: ${data.name} <br> Phone: ${data.phone} <br> Email: ${data.email}`);
+
+            console.log('Success:', data);
+
         })
         .catch((error) => {
             console.error('Error:', error);
         });
 });
+
+//Function for load owner in Update owner
+function loadOwnerOptions() {
+    fetch(getAllUrl, {
+        method: 'GET',
+    })
+        .then(response => response.json())
+        .then(data => {
+            const ownerSelect = document.getElementById('update-id');
+            ownerSelect.innerHTML = '<option value="">Select an Owner</option>';
+
+            const ownerInfo = {};
+
+            data.forEach(owner => {
+                const option = document.createElement('option');
+                option.value = owner.id;
+                option.text = `${owner.id}`;
+                ownerSelect.appendChild(option);
+
+                ownerInfo[owner.id] = owner;
+            });
+
+            ownerSelect.addEventListener('change', function () {
+                const selectedOwnerId = ownerSelect.value;
+
+                const owner = ownerInfo[selectedOwnerId]
+                document.getElementById('update-name').value = owner.name;
+                document.getElementById('update-phone').value = owner.phone;
+                document.getElementById('update-email').value = owner.email;
+
+            });
+
+        })
+        .catch(error => console.error('Error fetching owner data:', error));
+}
+
+window.onload = function () {
+    loadOwnerOptions();
+    fetchAllOwners();
+};
+
+
 
 // Update an owner
 document.getElementById('update-owner').addEventListener('submit', function (event) {
@@ -103,9 +191,13 @@ document.getElementById('update-owner').addEventListener('submit', function (eve
     })
         .then(response => response.json())
         .then(data => {
-            alert('Owner updated successfully');
+
+            openModal("Owner updated successfully");
             console.log('Success:', data);
-            window.location.reload();
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -122,8 +214,11 @@ document.getElementById('delete-owner').addEventListener('submit', function (eve
         method: 'DELETE',
     })
         .then(() => {
-            alert('Owner deleted successfully');
-            window.location.reload();
+            openModal('Owner deleted successfully');
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500)
+
         })
         .catch((error) => {
             console.error('Error:', error);

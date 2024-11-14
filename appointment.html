@@ -33,11 +33,25 @@
                     <input type="text" id="dog-id" name="dog-id" required> -->
                     <label for="dog-id">Dog ID:</label>
                     <select id="dog-id" name="dog-id" required>
-                        
                     </select>
 
-                    <label for="owner-id">Owner ID:</label>
-                    <input type="number" id="owner-id" name="owner-id" required min="1">
+                    <div id="owner-info">
+                        <label>Owner Information:</label>
+                        <table>
+                            <tr>
+                                <th>ID</th>
+                                <td id="owner-info-id"></td>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+                                <td id="owner-info-name"></td>
+                            </tr>
+                            <tr>
+                                <th>Phone</th>
+                                <td id="owner-info-phone"></td>
+                            </tr>
+                        </table>
+                    </div>
 
                     <label for="bath-type">Bath type:</label>
                     <select id="bath-type" name="bath-type">
@@ -71,6 +85,8 @@
                         <!-- Appointment records will be populated here -->
                     </tbody>
                 </table>
+
+
             </section>
 
             <!-- Search appointment by dog's name -->
@@ -90,16 +106,16 @@
                 <h2>Update appointment</h2>
                 <form id="update-appointment">
                     <label for="update-id">Appointment ID:</label>
-                    <input type="number" id="update-id" name="update-id" required>
+                    <select type="number" id="update-id" name="update-id" required></select>
 
                     <label for="update-dog-id">New dog ID:</label>
-                    <input type="number" id="update-dog-id" name="update-dog-id">
+                    <input type="number" id="update-dog-id" name="update-dog-id" required>
 
                     <label for="update-owner-id">New owner ID:</label>
-                    <input type="number" id="update-owner-id" name="update-owner-id">
+                    <input type="number" id="update-owner-id" name="update-owner-id" required>
 
                     <label for="update-bath-type">New bath type:</label>
-                    <select id="update-bath-type" name="update-bath-type">
+                    <select id="update-bath-type" name="update-bath-type" required>
                         <option value="Basic">Basic</option>
                         <option value="Deluxe">Deluxe</option>
                         <option value="Premium">Premium</option>
@@ -135,6 +151,14 @@
             <p>Contact: 513-547-95472 | Email: contact@groomingdoggyfriend.com</p>
         </div>
     </footer>
+
+    <!-- Modal -->
+    <div id="appointment-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="appointment-modal-message"></p>
+        </div>
+    </div>
 
     <script src="js/appointment.js"></script>
 

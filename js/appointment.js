@@ -1,8 +1,30 @@
 const postUrl = 'http://localhost:8762/appointment/api/v1/appointment/register';
 const getAllUrl = 'http://localhost:8762/appointment/api/v1/appointment/appointments';
 const getByNameUrl = 'http://localhost:8762/appointment/api/v1/appointment/search';
-const putUrl = 'http://localhost:8762/appointment/api/v1/appointment/3/update';
+const putUrl = 'http://localhost:8762/appointment/api/v1/appointment/update';
 const deleteUrl = 'http://localhost:8762/appointment/api/v1/appointment/delete';
+const getOwners = 'http://localhost:8762/owner/api/v1/owners';
+const getDogs = 'http://localhost:8762/dog/api/v1/dog/allDogs';
+
+// MODAL message
+const registerModal = document.getElementById('appointment-modal');
+const closeBtn = document.querySelector('.close');
+
+function openApointModal(message) {
+    document.getElementById('appointment-modal-message').innerHTML = message;
+    registerModal.style.display = 'block';
+}
+
+closeBtn.onclick = function () {
+    registerModal.style.display = 'none';
+}
+
+window.onclick = function (event) {
+    if (event.target == registerModal) {
+        registerModal.style.display = 'none';
+    }
+}
+
 
 // Register a new appointment
 const form = document.getElementById('register-appointment');
@@ -30,25 +52,29 @@ form.addEventListener('submit', function (event) {
             return response.json();
         })
         .then(data => {
-            alert("Dog registered")
+            openApointModal("Appointment registered")
             console.log('Success:', data);
-            window.location.reload();
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
         })
         .catch(error => {
             console.error('Error:', error);
         });
 });
 
+//Function for load DOGs in register Apointment (SELECT)
 function loadDogOptions() {
-    fetch('http://localhost:8762/dog/api/v1/dog/allDogs', {
+    fetch(getDogs, {
         method: 'GET',
     })
         .then(response => response.json())
         .then(data => {
             const dogSelect = document.getElementById('dog-id');
-            dogSelect.innerHTML = '';
+            dogSelect.innerHTML = '<option value="">Select a Dog</option>';
 
-            const dogOwner = {};
+            const dogOwnerInfo = {};
 
             data.forEach(dog => {
                 const option = document.createElement('option');
@@ -56,23 +82,35 @@ function loadDogOptions() {
                 option.text = `${dog.id}: ${dog.name}`;
                 dogSelect.appendChild(option);
 
-                dogOwner[dog.id] = dog.owner.id;
+
+                dogOwnerInfo[dog.id] = {
+                    id: dog.owner.id,
+                    name: dog.owner.name,
+                    phone: dog.owner.phone
+                };
+
             });
 
             dogSelect.addEventListener('change', function () {
                 const selectedDogId = dogSelect.value;
-                const ownerIdField = document.getElementById('owner-id');
-                ownerIdField.value = dogOwner[selectedDogId] || '';
-            });
+                if (dogOwnerInfo[selectedDogId]) {
+                    // Update owner information table
+                    document.getElementById('owner-info-id').textContent = dogOwnerInfo[selectedDogId].id;
+                    document.getElementById('owner-info-name').textContent = dogOwnerInfo[selectedDogId].name;
+                    document.getElementById('owner-info-phone').textContent = dogOwnerInfo[selectedDogId].phone;
+                } else {
+                    // Clear table if no dog is selected
+                    document.getElementById('owner-info-id').textContent = '';
+                    document.getElementById('owner-info-name').textContent = '';
+                    document.getElementById('owner-info-phone').textContent = '';
+                }
 
+            });
         })
         .catch(error => console.error('Error fetching dog data:', error));
 }
 
-window.onload = function () {
-    loadDogOptions();
-    fetchAllAppoitnments();
-};
+
 
 
 // Show all appointments
@@ -136,7 +174,7 @@ document.getElementById('update-appointment').addEventListener('submit', functio
         dogId: document.getElementById('update-dog-id').value,
         ownerId: document.getElementById('update-owner-id').value,
         bathType: document.getElementById('update-bath-type').value,
-        dateTime: document.getElementById('').value,
+        dateTime: document.getElementById('update_date_time').value,
     };
 
     fetch(`${putUrl}/${appointmentId}`, {
@@ -148,14 +186,72 @@ document.getElementById('update-appointment').addEventListener('submit', functio
     })
         .then(response => response.json())
         .then(data => {
-            alert('Dog updated successfully');
+            openApointModal('Dog updated successfully');
+
             console.log('Success:', data);
-            window.location.reload();
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
         })
         .catch((error) => {
             console.error('Error:', error);
         });
 });
+
+// Function to load appointment IDs into the update appointment select field
+function loadAppointmentOptions() {
+    fetch(getAllUrl, {
+        method: 'GET',
+    })
+        .then(response => response.json())
+        .then(data => {
+            const appointmentSelect = document.getElementById('update-id');
+            appointmentSelect.innerHTML = '<option value="">Select Appointment ID</option>'; // Clear existing options
+
+            data.forEach(appointment => {
+                const option = document.createElement('option');
+                option.value = appointment.id;
+                option.text = `ID: ${appointment.id}`;
+                appointmentSelect.appendChild(option);
+            });
+
+            // Add event listener for auto-filling fields when an appointment ID is selected
+            appointmentSelect.addEventListener('change', function () {
+                const selectedAppointmentId = appointmentSelect.value;
+                if (selectedAppointmentId) {
+                    autoFillAppointmentFields(selectedAppointmentId);
+                } else {
+                    clearUpdateFields(); // Clear fields if no ID is selected
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching appointments:', error));
+}
+
+// Function to auto-fill fields based on selected appointment ID
+function autoFillAppointmentFields(appointmentId) {
+    fetch(`${getAllUrl}/${appointmentId}`, {
+        method: 'GET'
+    })
+        .then(response => response.json())
+        .then(appointment => {
+            document.getElementById('update-dog-id').value = appointment.dog.id;
+            document.getElementById('update-owner-id').value = appointment.owner.id;
+            document.getElementById('update-bath-type').value = appointment.bathType;
+            document.getElementById('update_date_time').value = new Date(appointment.dateTime).toISOString().slice(0, -1);
+        })
+        .catch(error => console.error('Error fetching appointment details:', error));
+}
+
+// Clear fields when no appointment is selected
+function clearUpdateFields() {
+    document.getElementById('update-dog-id').value = '';
+    document.getElementById('update-owner-id').value = '';
+    document.getElementById('update-bath-type').value = '';
+    document.getElementById('update_date_time').value = '';
+}
+
+
 
 // Delete an appointment
 document.getElementById('delete-appointment').addEventListener('submit', function (event) {
@@ -167,10 +263,19 @@ document.getElementById('delete-appointment').addEventListener('submit', functio
         method: 'DELETE',
     })
         .then(() => {
-            alert('Dog deleted successfully');
-            window.location.reload();
+            openApointModal('Appointment deleted successfully');
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
         })
         .catch((error) => {
             console.error('Error:', error);
         });
 });
+
+
+window.onload = function () {
+    loadDogOptions();
+    fetchAllAppoitnments();
+    loadAppointmentOptions();
+};

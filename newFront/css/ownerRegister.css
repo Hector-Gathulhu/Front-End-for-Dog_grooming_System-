@@ -39,15 +39,7 @@ label {
     margin-top: 10px;
 }
 
-input[type="text"], input[type="tel"], input[type="number"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-select {
+input[type="text"], input[type="email"], input[type="number"] {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -65,43 +57,8 @@ input[type="submit"] {
     border-radius: 5px;
 }
 
-input[type="submit"]:hover {
-    background-color: #57a870;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-table, th, td {
-    border: 1px solid #ccc;
-}
-
-th, td {
-    padding: 10px;
-    text-align: left;
-}
-
-th {
-    background-color: #f1f1f1;
-}
-
-footer {
-    background-color: #f1f1f1;
-    padding: 10px;
-    text-align: center;
-    color: #555;
-}
-
-footer p {
-    margin: 5px 0;
-}
-
-
 .modal {
-    display: none;
+    display: none; /* Oculto por defecto */
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -109,7 +66,7 @@ footer p {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
 }
 
 .modal-content {
