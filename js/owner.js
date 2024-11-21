@@ -3,25 +3,25 @@ const postUrl = 'http://localhost:8762/owner/api/v1/owners/register';
 const getAllUrl = 'http://localhost:8762/owner/api/v1/owners';
 const getByIdUrl = 'http://localhost:8762/owner/api/v1/owners/';
 const putUrl = 'http://localhost:8762/owner/api/v1/owners/';
-const deleteUrl = 'http://localhost:8762/owner/api/v1/owners/delete/';
+const deleteUrl = 'http://localhost:8762/owner/api/v1/owners/delete';
 
 
-// Obtener el modal y el botón de cierre
+// call modal an close button
 const registerModal = document.getElementById('registerModal');
 const closeBtn = document.querySelector('.close');
 
-// Función para abrir el modal con un mensaje
+// Open modal with a message
 function openModal(message) {
     document.getElementById('modal-message').innerHTML = message;
     registerModal.style.display = 'block';
 }
 
-// Cierra el modal al hacer clic en el botón de cierre
+// Close modal with button
 closeBtn.onclick = function () {
     registerModal.style.display = 'none';
 }
 
-// Cierra el modal al hacer clic fuera del contenido
+// Close modal clicking anywhere
 window.onclick = function (event) {
     if (event.target == registerModal) {
         registerModal.style.display = 'none';
@@ -29,8 +29,8 @@ window.onclick = function (event) {
 }
 
 
-// Register a new owner
-const form = document.getElementById('register-owner');
+// -------------------- REGISTER OWNER SECTION ------------------------
+/*const form = document.getElementById('register-owner');
 form.addEventListener('submit', function (event) {
     event.preventDefault();
 
@@ -66,10 +66,10 @@ form.addEventListener('submit', function (event) {
             openModal('Error: ' + error.message);
             console.error('Error:', error);
         });
-});
+});*/
 
 
-// Show all owners
+// ------------------------- SHOW OWNERS SECTION -----------------------------
 function fetchAllOwners() {
     fetch(getAllUrl, {
         method: 'GET',
@@ -89,8 +89,8 @@ function fetchAllOwners() {
                         <div class="options-container">
                             <button class="action-button" onclick="toggleOptions(this)">...</button>
                                 <div class="options-menu" style="display: none;">
-                                    <button onclick="updateOwner(${owner.id})">Update</button>
-                                    <button onclick="deleteOwner(${owner.id})">Delete</button>
+                                    <button onclick="redirectToUpdate(${owner.id})">Update</button>
+                                    <button onclick="showDeleteConfirmModal(${owner.id})">Delete</button>
                                 </div>
                         </div>
                     </td>
@@ -102,14 +102,32 @@ function fetchAllOwners() {
         });
 }
 
+//function to close selection Update an Delete
 function toggleOptions(button) {
     const optionsMenu = button.nextElementSibling;
-    optionsMenu.style.display = optionsMenu.style.display === 'none' ? 'block' : 'none';
+
+    const isVisible = optionsMenu.style.display === 'block';
+    document.querySelectorAll('.options-menu').forEach(menu => menu.style.display = 'none');
+    optionsMenu.style.display = isVisible ? 'none' : 'block';
+}
+
+document.addEventListener('click', (event) => {
+    const isButton = event.target.matches('.action-button');
+    const isMenu = event.target.closest('.options-menu');
+
+    if (!isButton && !isMenu) {
+        document.querySelectorAll('.options-menu').forEach(menu => menu.style.display = 'none');
+    }
+});
+
+//Function that allows pass the id Owner to update data
+function redirectToUpdate(ownerId) {
+    window.location.href = `newFront/html/ownerUpdate.html?ownerId=${ownerId}`;
 }
 
 
-// owner by ID
-document.getElementById('search-owner').addEventListener('submit', function (event) {
+// ------------------------- FIND BY ID SECTION --------------------
+/*document.getElementById('search-owner').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const ownerId = document.getElementById('search-id').value;
@@ -127,9 +145,43 @@ document.getElementById('search-owner').addEventListener('submit', function (eve
         .catch((error) => {
             console.error('Error:', error);
         });
+});*/
+
+
+// ----------------------- UPDATE OWNER SECTION ----------------------------------
+/*document.getElementById('update-owner').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const ownerId = document.getElementById('update-id').value;
+    const updatedOwnerData = {
+        name: document.getElementById('update-name').value,
+        phone: document.getElementById('update-phone').value,
+        email: document.getElementById('update-email').value
+    };
+
+    fetch(`${putUrl}/${ownerId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedOwnerData)
+    })
+        .then(response => response.json())
+        .then(data => {
+
+            openModal("Owner updated successfully");
+            console.log('Success:', data);
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 });
 
-//Function for load owner in Update owner
+//Function for load OWNER ID in Update owner
 function loadOwnerOptions() {
     fetch(getAllUrl, {
         method: 'GET',
@@ -162,50 +214,16 @@ function loadOwnerOptions() {
 
         })
         .catch(error => console.error('Error fetching owner data:', error));
-}
+}*/
 
 window.onload = function () {
-    loadOwnerOptions();
+    //loadOwnerOptions();
     fetchAllOwners();
 };
 
 
-
-// Update an owner
-document.getElementById('update-owner').addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const ownerId = document.getElementById('update-id').value;
-    const updatedOwnerData = {
-        name: document.getElementById('update-name').value,
-        phone: document.getElementById('update-phone').value,
-        email: document.getElementById('update-email').value
-    };
-
-    fetch(`${putUrl}/${ownerId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedOwnerData)
-    })
-        .then(response => response.json())
-        .then(data => {
-
-            openModal("Owner updated successfully");
-            console.log('Success:', data);
-
-            setTimeout(() => {
-                window.location.reload();
-            }, 1500);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-});
-
-// Delete an owner
-document.getElementById('delete-owner').addEventListener('submit', function (event) {
+// Delete an owner (OLD FUNCTION) 
+/*document.getElementById('delete-owner').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const ownerId = document.getElementById('delete-id').value;
@@ -223,6 +241,44 @@ document.getElementById('delete-owner').addEventListener('submit', function (eve
         .catch((error) => {
             console.error('Error:', error);
         });
-});
+});*/
+
+// ---------------------------- DELETE SECTION -------------------------------------
+
+let ownerIdToDelete = null;
+
+// ---- MODAL ---
+// Show Confirm delete
+function showDeleteConfirmModal(ownerId) {
+    ownerIdToDelete = ownerId;
+    document.getElementById('deleteConfirmModal').style.display = 'block';
+}
+
+// Close Confirm delete
+function closeDeleteConfirmModal() {
+    document.getElementById('deleteConfirmModal').style.display = 'none';
+}
 
 
+//------- New function delete ----
+
+function deleteOwner() {
+    fetch(`${deleteUrl}/${ownerIdToDelete}`, { method: 'DELETE' })
+        .then(response => {
+            if (response.ok) {
+                closeDeleteConfirmModal();
+                document.getElementById('registerModal').style.display = 'block';
+                document.getElementById('modal-message').innerText = 'Owner deleted successfully';
+                fetchAllOwners();
+            } else {
+                console.error('Failed to delete owner');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+// Event listeners for bottons
+document.getElementById('confirmDeleteBtn').addEventListener('click', deleteOwner);
+document.getElementById('cancelDeleteBtn').addEventListener('click', closeDeleteConfirmModal);

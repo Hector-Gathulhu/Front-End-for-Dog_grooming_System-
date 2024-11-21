@@ -26,7 +26,7 @@
     <main>
         <div class="container">
             <!-- Register an owner -->
-            <section>
+            <!-- <section>
                 <h2>Register a new owner</h2>
                 <form id="register-owner">
                     <label for="name">Full name:</label>
@@ -40,7 +40,7 @@
 
                     <input type="submit" value="Register">
                 </form>
-            </section>
+            </section> -->
 
 
             <!-- Show all the owners -->
@@ -62,12 +62,13 @@
                     </tbody>
                 </table>
 
-                <button class="regist-button" onclick="window.location.href='newFront/html/ownerRegister.html'"> Register a new Owner </button>
+                <button class="regist-button" onclick="window.location.href='newFront/html/ownerRegister.html'">
+                    Register a new Owner </button>
             </section>
 
 
             <!-- Find owner by ID -->
-            <section>
+            <!-- <section>
                 <h2>Find an owner</h2>
                 <form id="search-owner">
                     <label for="search-id">Owner ID:</label>
@@ -75,16 +76,16 @@
 
                     <input type="submit" value="Search">
                 </form>
-            </section>
+            </section> -->
 
 
             <!-- Update owner data by ID -->
-            <section>
+            <!-- <section>
                 <h2>Update owner data</h2>
                 <form id="update-owner">
                     <label for="update-id">Owner ID:</label>
-                    <select id="update-id" name="update-id" required >
-                        
+                    <select id="update-id" name="update-id" required>
+
                     </select>
 
                     <label for="update-name">New name:</label>
@@ -98,19 +99,19 @@
 
                     <input type="submit" value="Update">
                 </form>
-            </section>
+            </section> -->
 
 
             <!-- Delete by ID -->
-            <section>
+            <!-- <section>
                 <h2>Delete owner</h2>
                 <form id="delete-owner">
                     <label for="delete-id">Owner ID:</label>
-                    <input type="number" id="delete-id" name="delete-id" min="1" required >
+                    <input type="number" id="delete-id" name="delete-id" min="1" required>
 
                     <input type="submit" value="Delete">
                 </form>
-            </section>
+            </section> -->
 
         </div>
     </main>
@@ -124,11 +125,21 @@
         </div>
     </footer>
 
-    <!-- Modal -->
+    <!-- Modal: register confirmation -->
     <div id="registerModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <p id="modal-message"></p>
+        </div>
+    </div>
+
+    
+    <!-- Modal: delete confirmation -->
+    <div id="deleteConfirmModal" class="modal">
+        <div class="modal-content">
+            <p>Do you want to delete this owner?</p>
+            <button id="confirmDeleteBtn">Yes</button>
+            <button id="cancelDeleteBtn">No</button>
         </div>
     </div>
 

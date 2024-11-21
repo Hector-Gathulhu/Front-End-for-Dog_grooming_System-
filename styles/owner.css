@@ -191,6 +191,22 @@ footer p {
     border-radius: 8px;
 }
 
+.modal-content button{
+    background-color: #6cbf84;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.modal-content button:hover{
+    background-color: #57a870;
+}
+
 .close {
     color: #aaa;
     float: right;

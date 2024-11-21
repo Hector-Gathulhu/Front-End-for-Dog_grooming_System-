@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update owner</title>
+    <link rel="stylesheet" href="../css/ownerUpdate.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="../../index.html">Home</a>
+            <a href="../../owner.html">Owner</a>
+            <a href="../../dog.html">About your buddy</a>
+            <a href="../../appointment.html">About your appointment</a>
+        </nav>
+        <h1>Update</h1>
+    </header>
+
+    <!-- body -->
+    <main>
+        <div class="container">
+            <!-- Update owner data by ID -->
+            <section>
+                <h2>Update owner data</h2>
+                <form id="update-owner">
+                    <label for="update-id">Owner ID:</label>
+                    <input type="text" id="update-id" name="update-id" required disabled>
+
+                    </input>
+
+                    <label for="update-name">New name:</label>
+                    <input type="text" id="update-name" name="update-name" required>
+
+                    <label for="update-phone">New phone number:</label>
+                    <input type="text" id="update-phone" name="update-phone" required>
+
+                    <label for="update-email">New email:</label>
+                    <input type="email" id="update-email" name="update-email" required>
+
+                    <input type="submit" value="Update">
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal: register confirmation -->
+    <div id="updateModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modal-message"></p>
+        </div>
+    </div>
+
+    <script src="../js/ownerUpdate.js"></script>
+</body>
+
+</html>
